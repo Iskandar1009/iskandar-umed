@@ -17,3 +17,32 @@ function cocktailMojito
 }
 
 cocktailMojito(10, 0.5, 150, 8, 1, "Drink this and chill");
+>
+
+<?php
+
+/* Mint milk 
+0,5 liter, milk
+2 tablespoons, sugar
+2 twigs, mint
+*/
+
+function cocktailMintmilk 
+(float $milk
+ int $sugar
+ int $mint
+ string $wishes
+)
+ {
+ echo " 1. Pour $milk liter the milk into a saucepan, rinse $mint twigs the mint and rub it lightly with your fingers so that the leaves give off a smell. We put it in a saucepan with milk and put the milk with mint on the fire.<br>
+2. Bring the milk to a boil, add $sugar tablespoons sugar and boil, stirring, for a minute or two. Remove the milk with mint from the heat and leave to cool for 20-30 minutes. We remove the foam, throw away $mint twigs the mint. We filter the milk and send it to cool in the refrigerator.<br>
+3. That's all, a delicious refreshing mint cocktail is ready. :) <br>
+$wishes ";
+ 
+ /* 1. Pour the milk into a saucepan, rinse the mint and rub it lightly with your fingers so that the leaves give off a smell. We put it in a saucepan with milk and put the milk with mint on the fire.<br>
+2. Bring the milk to a boil, add sugar and boil, stirring, for a minute or two. Remove the milk with mint from the heat and leave to cool for 20-30 minutes. We remove the foam, throw away the mint. We filter the milk and send it to cool in the refrigerator.<br>
+3. That's all, a delicious refreshing mint "cocktail" is ready. :) */
+ }
+ 
+ cocktailMintmilk(0,5, 2, 2, 'Drink chilled');
+>
