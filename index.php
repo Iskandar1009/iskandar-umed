@@ -1,6 +1,6 @@
 <?php
 
-function cocktailMojito
+function cookCocktailMojito
 (int $mint, 
  float $lime, 
  int $sprite, 
@@ -16,7 +16,9 @@ function cocktailMojito
     $feedbacks";
 }
 
-cocktailMojito(10, 0.5, 150, 8, 1, "Drink this and chill");
+
+cookCocktailMojito(10, 0.5, 150, 8, 1, "Drink this and chill");
+
 
 
 
