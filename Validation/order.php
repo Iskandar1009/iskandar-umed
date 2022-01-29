@@ -1,17 +1,18 @@
 <?php
-//CODE BY ISKANDAR
+
 function typeChecking($str){
-    if(is_string($str) == 1){
-        return "Order's type is OK. ";
+    if((int) $str == 0){
+        return "Variable's type is true. ";
     }
-    return "ERROR, invalid type of order. ";
+    return "ERROR, invalid type of variable. ";
 }
 function order(string $order){
+    //CODE BY ISKANDAR
     $orders = ["Рифы", "Земля", "Тонем"];
     if(strlen($order) > 15 || strlen($order) < 2){
         return "ERROR, your order is long or short.";
     }
-    for($i = 0; $i <= 4; $i++){
+    for($i = 0; $i <= 3; $i++){
         if($order == $orders[$i]){
             return "This order is on your order list.";
         }
