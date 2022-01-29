@@ -1,6 +1,7 @@
 <?php
 
 function typeChecking($str){
+    //CODE BY ISKANDAR
     if((int) $str == 0){
         return "Variable's type is true. ";
     }
