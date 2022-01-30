@@ -46,22 +46,4 @@ function orderFromFisherman(string $fish_name, string $fish_number)
     $fish_number = readline("Input number of fishes: ");
     echo typeChecking($fish_name, $fish_number);
     echo orderFromFisherman($fish_name, $fish_number);
-    
-    
-    /*echo " ";
-    echo "is_string(";
-    var_export($fish_name);
-    echo ") = ";
-    var_dump(is_string($fish_name));
-
-    echo "is_int(";
-    var_export($fish_number);
-    echo ") = ";
-    var_dump(is_string($fish_number)); */
-
-
-
-    /*echo "<br>";
-    echo gettype($fish_name);
-    echo "<br>";
-    echo gettype($fish_number);*/
+ 
