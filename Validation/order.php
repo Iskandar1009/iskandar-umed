@@ -8,7 +8,7 @@ function validateString($item)
     return "Type of order is ok. ";
 }
 function validateMin($item, $min_value){
-    if (strlen($item) < $min_value) {
+    if (strlen($item) <= $min_value) {
         return "Very few characters in the order. ";
     }
     return "Min number of characters are ok. ";
@@ -27,13 +27,17 @@ function validateInArray($order, $orders){
     return "This order is listed. ";
 }
 function order($order){
-    $orders = ["Рифы", "Земля", "Тонем"];
-    $validate_string = validateString($order);
-    $validate_min = validateMin($order, 2);
-    $validate_max = validateMax($order, 15);
-    $validate_in_array = validateInArray($order, $orders);
-    $result = ['message' => "$validate_string $validate_min $validate_max $validate_in_array"];
-    return $result['message'];
+    $validation_message = "";
+    $validation_message .= validateString($order) . '</br>';
+    $validation_message .= validateMin($order, 2) . '</br>';
+    $validation_message .= validateMax($order, 15) . '</br>';
+    $orders = 
+    ["Рифы", 
+    "Земля", 
+    "Тонем"
+];
+    $validation_message .= validateInArray($order, $orders) . '</br>';
+    return $validation_message;
     
 }
 $order = readline("Input order: ");
