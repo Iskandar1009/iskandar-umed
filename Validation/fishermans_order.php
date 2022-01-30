@@ -1,13 +1,13 @@
 <?php
 
-function typeCheckingStr($fish_name)
+function validateString($fish_name)
 {
-    if(!is_string($fish_name)){
+    if((int) $fish_name != 0){
         return "ERROR 422, type of fish name have to be string. ";
     }
     return "Type of fish name is ok. ";
 }
-function typeCheckingInt($fish_number)
+function validateInt($fish_number)
 {
     if((int) $fish_number == 0){
         return "ERROR 422, type of fish number have to be int. ";
@@ -42,8 +42,8 @@ function orderFromFisherman(string $fish_name, string $fish_number)
         "Сазан",
         "Лосось"
     ];
-    $type_checking_str = typeCheckingStr($fish_name);
-    $type_checking_int = typeCheckingInt($fish_number);
+    $type_checking_str = validateString($fish_name);
+    $type_checking_int = validateInt($fish_number);
     $min_max_checking = minMaxChecking($fish_name);
     $search_in_list = searchInList($fish_name, $fishes);
     return "$type_checking_str $type_checking_int $min_max_checking $search_in_list";
