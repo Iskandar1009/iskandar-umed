@@ -1,38 +1,39 @@
 <?php
 
-function validateString($order)
+function validateString($item)
 {
-    if((int) $order != 0){
+    if(!is_string($item)){
         return "ERROR 422, type of order have to be string. ";
     }
     return "Type of order is ok. ";
 }
-function minMaxChecking(string $order){
-    $min = 2;
-    $max = 15;
-    if (strlen($order) >= $max) {
-        return "A lot of characters in the order. ";
-    }
-    if (strlen($order) < $min) {
+function validateMin($item, $min_value){
+    if (strlen($item) < $min_value) {
         return "Very few characters in the order. ";
     }
-    return "Number of characters are ok. ";
+    return "Min number of characters are ok. ";
 }
-function searchInList(string $order, array $orders){
-    for($i = 0; $i <= 3; $i++){
-        if($order == $orders[$i]){
-            return "This order is on your order list.";
-        }
+function validateMax($item, $max_value){
+    if (strlen($item) >= $max_value) {
+        return "A lot of characters in the order. ";
     }
-    return "This order is not in your list of orders.";
+    
+    return "Max number of characters are ok. ";
 }
-function order(string $order){
-    //CODE BY ISKANDAR
+function validateInArray($order, $orders){
+    if(!in_array($order, $orders)){
+        return "This order isn't listed. ";
+    }
+    return "This order is listed. ";
+}
+function order($order){
     $orders = ["Рифы", "Земля", "Тонем"];
-    $type_checking_str = validateString($order);
-    $min_max_checking = minMaxChecking($order);
-    $search_in_list = searchInList($order, $orders);
-    return "$type_checking_str $min_max_checking $search_in_list";
+    $validate_string = validateString($order);
+    $validate_min = validateMin($order, 2);
+    $validate_max = validateMax($order, 15);
+    $validate_in_array = validateInArray($order, $orders);
+    $result = ['message' => "$validate_string $validate_min $validate_max $validate_in_array"];
+    return $result['message'];
     
 }
 $order = readline("Input order: ");
