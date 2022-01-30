@@ -1,49 +1,54 @@
 <?php
 
-function typeChecking($str, $int)
+function typeCheckingStr($fish_name)
 {
-    if((int) $str == 0 && (int) $int != 0){
-        return "Variable's type is true. ";
+    if(!is_string($fish_name)){
+        return "ERROR 422, type of fish name have to be string. ";
     }
-    return "ERROR, invalid type of variable. ";
+    return "Type of fish name is ok. ";
 }
-
+function typeCheckingInt($fish_number)
+{
+    if((int) $fish_number == 0){
+        return "ERROR 422, type of fish number have to be int. ";
+    }
+    return "Type of fish number is ok. ";
+}
+function minMaxChecking(string $fish_name){
+    $min = 3;
+    $max = 15;
+    if (strlen($fish_name) >= $max) {
+        return "A lot of characters in the name of the fish. ";
+    }
+    if (strlen($fish_name) < $min) {
+        return "Very few characters in the name of the fish. ";
+    }
+    return "Number of characters are ok. ";
+}
+function searchInList(string $fish_name, array $fishes){
+    if(!in_array($fish_name, $fishes)){
+        return "This fish isn't listed. ";
+    }
+    return "This fish is listed. ";
+}
 function orderFromFisherman(string $fish_name, string $fish_number)
 {
     //проверить типы данных
     //длина команды минимум и максимум
     //находится для в наборе уже существующих рыб в океане
-    $new_fish_number = (int) $fish_number;
     $fishes = [
         "Окунь",
         "Карась",
         "Сазан",
         "Лосось"
     ];
-
-    if (strlen($fish_name) >= 15) {
-        return "A lot of characters in the name of the fish";
-    }
-    if (strlen($fish_name) < 3) {
-        return "Very few characters in the name of the fish";
-    }
-    if ($fishes[0] == $fish_name){
-        return "This fish is on the list";
-    }
-    if ($fishes[1] == $fish_name){
-        return "This fish is on the list";
-    }
-    if ($fishes[2] == $fish_name){
-        return "This fish is on the list";
-    }
-    if ($fishes[3] == $fish_name){
-        return "This fish is on the list";
-    } else {
-        return "ERROR - 422!Change your order!";
-    }
+    $type_checking_str = typeCheckingStr($fish_name);
+    $type_checking_int = typeCheckingInt($fish_number);
+    $min_max_checking = minMaxChecking($fish_name);
+    $search_in_list = searchInList($fish_name, $fishes);
+    return "$type_checking_str $type_checking_int $min_max_checking $search_in_list";
 } 
     $fish_name = readline("Input fish's name: ");
     $fish_number = readline("Input number of fishes: ");
-    echo typeChecking($fish_name, $fish_number);
     echo orderFromFisherman($fish_name, $fish_number);
  
