@@ -14,7 +14,6 @@ function validateInt($fish_number)
     }
     return "Type of fish number is ok. ";
 }
-
 function validateMin($fish_name, $min_value)
 {
     if (strlen($fish_name) <= $min_value) {
@@ -29,7 +28,6 @@ function validateMax($fish_name, $max_value)
     }
     return "Number of characters are ok. ";
 }
-
 function validateInArray(string $fish_name, array $fishes)
 {
     if(!in_array($fish_name, $fishes)){
@@ -48,6 +46,7 @@ function orderFishes(string $fish_name, string $fish_number)
         "Сазан",
         "Лосось"
     ];
+
     $validate_string = validateString($fish_name) . '</br>';
     $validate_int = validateInt($fish_number) . '</br>';
     $validate_min = validateMin($fish_name, 2) . '</br>';
