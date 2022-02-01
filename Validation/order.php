@@ -22,27 +22,45 @@ function validateMax($item, $max_value)
 
     return "Max number of characters are ok. ";
 }
-function validateInArray($order, $orders)
+function validateInArray($order, $available_orders)
 {
-    if (!in_array($order, $orders)) {
+    if (!in_array($order, $available_orders)) {
         return "This order isn't listed. ";
     }
     return "This order is listed. ";
 }
-function order($order)
+function validate($order, $rules, $available_orders)
 {
-    $validation_message = "";
-    $validation_message .= validateString($order) . '</br>';
-    $validation_message .= validateMin($order, 2) . '</br>';
-    $validation_message .= validateMax($order, 15) . '</br>';
-    $orders =
+    $messages = [];
+    $rules_in_array = explode('|', $rules);
+    if(in_array('string', $rules_in_array)){
+        array_push($messages, validateString($order));
+    }
+    if(in_array('min', $rules_in_array)){
+        array_push($messages, validateMin($order, 2));
+    }
+    if(in_array('max', $rules_in_array)){
+        array_push($messages, validateMax($order, 40));
+    }
+    if(in_array('in:available_orders', $rules_in_array)){
+        array_push($messages, validateInArray($order, $available_orders));
+    }
+    return $messages;
+}
+function index($order)
+{
+    $available_orders =
         [
             "Рифы",
             "Земля",
             "Тонем"
         ];
-    $validation_message .= validateInArray($order, $orders) . '</br>';
-    return $validation_message;
+    $rules = 'string|min|max|in:available_orders';
+    $messages = validate($order, $rules, $available_orders);
+
+    return count($messages)
+        ? implode(',\n', $messages)
+        :'No validation messages';
 }
 $order = readline("Input order: ");
-echo order($order);
+echo index($order);
