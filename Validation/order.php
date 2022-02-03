@@ -22,21 +22,20 @@
 
      return "Max number of characters are ok. ";
  }
- function validateArray($order, $min_value, $max_value, $available_orders)
+ function validateInArray($order, $min_value, $max_value, $available_orders)
  {
      if (!in_array($order, $available_orders)) {
          return "This order isn't listed. ";
      }
      return "This order is listed. ";
  }
- function validate($order, $rules, $available_orders)
+ function validate($order, $rules, $available_orders, $rules_values)
  {
      $messages = [];
      $rules_in_array = explode('|', $rules);
-     $rules_in_array_without_colon = explode(':', $rules);
-     //unset();
+     $rules_values_in_array = explode('|', $rules_values);
      foreach($rules_in_array as $rule){
-         array_push($messages, call_user_func_array("validate" . ucfirst($rule), [$order, 2, 12,  $available_orders]));
+         array_push($messages, call_user_func_array("validate" . ucfirst($rule), [$order, $rules_values_in_array[0], $rules_values_in_array[1],  $available_orders]));
      }
      return $messages;
  }
@@ -48,8 +47,9 @@
              "Земля",
              "Тонем"
          ];
-     $rules = 'string|min:2|max:12|in:&available_orders';
-     $messages = validate($order, $rules, $available_orders);
+     $rules = 'string|min|max|inArray';
+     $rules_values = '2|12';
+     $messages = validate($order, $rules, $available_orders, $rules_values);
     
      return count($messages)
          ? implode(',\n', $messages)
