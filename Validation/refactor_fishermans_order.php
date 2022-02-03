@@ -19,14 +19,14 @@ function validateMin($fish_name, $min_value, $max_value, $fish_number, $availabl
     if (strlen($fish_name) <= $min_value) {
         return "Very few characters in the name of the fish. ";
     }
-    return "Number of characters are ok. ";
+    return "Min number of characters are ok. ";
 }
 function validateMax($fish_name, $min_value, $max_value, $fish_number, $available_fishes)
 {
     if (strlen($fish_name) >= $max_value) {
         return "A lot of characters in the name of the fish. ";
     }
-    return "Number of characters are ok. ";
+    return "Max number of characters are ok. ";
 }
 function validateInArray($fish_name, $min_value, $max_value, $fish_number, $available_fishes)
 {
@@ -35,14 +35,14 @@ function validateInArray($fish_name, $min_value, $max_value, $fish_number, $avai
     }
     return "This fish is listed. ";
 }
-function validateFishes($fish_name, $rules, $fish_number, $available_fishes)
+function validateFishes($fish_name, $rules, $fish_number, $available_fishes, $rules_values)
 {
     $messages = [];
     $rules_in_array = explode('|', $rules);
-    $rules_in_array_without_colon = explode(':', $rules);
-    // unset ();
+    $rules_values_in_array = explode('|', $rules_values);
+
     foreach ($rules_in_array as $rule) {
-        array_push($messages, call_user_func_array("validate" . ucfirst($rule), [$fish_name, 2, 15, $fish_number, $available_fishes]));
+        array_push($messages, call_user_func_array("validate" . ucfirst($rule), [$fish_name, $rules_values_in_array[0], $rules_values_in_array[1], $fish_number, $available_fishes]));
     }
     return $messages;
 }
@@ -54,8 +54,9 @@ function index($fish_name, $fish_number)
         "Сазан",
         "Лосось"
     ];
-    $rules = 'string|int|min:2|max:15|in:$available_fishes';
-    $messages = validateFishes($fish_name, $rules, $fish_number, $available_fishes);
+    $rules = 'string|int|min|max|inArray';
+    $rules_values = '2|15';
+    $messages = validateFishes($fish_name, $rules, $fish_number, $available_fishes, $rules_values);
     
     return count($messages)
         ? implode(',\n', $messages)
