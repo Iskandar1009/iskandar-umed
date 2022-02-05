@@ -34,8 +34,12 @@ function validate($order, $rules, $available_orders)
     $messages = [];
     $rules_in_array = explode('|', $rules);
     foreach ($rules_in_array as $rule) {
-        $value = explode(':', $rule);
-        array_push($messages, call_user_func_array("validate" . ucfirst($value[0]), [$order, $value[1], $value[1],  $available_orders]));
+        if (stristr($rule, ':') !== FALSE) {
+            $value = explode(':', $rule);
+            array_push($messages, call_user_func_array("validate" . ucfirst($value[0]), [$order, $value[1], $value[1],  $available_orders]));
+        } else {
+            array_push($messages, call_user_func_array("validate" . ucfirst($rule), [$order, null, null, $available_orders]));
+        }
     }
     return $messages;
 }
@@ -47,7 +51,7 @@ function index($order)
             "Земля",
             "Тонем"
         ];
-    $rules = 'string:null|min:2|max:25|inArray:$available_orders';
+    $rules = 'string|min:2|max:25|inArray:$available_orders';
     $messages = validate($order, $rules, $available_orders);
 
     return count($messages)
