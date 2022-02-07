@@ -1,20 +1,20 @@
 <?php
 
-function validateString($item, $min_value = null, $max_value = null, $available_orders = null)
+function validateString($item, $min_value, $max_value, $available_orders)
 {
     if (!is_string($item)) {
         return "ERROR 422, type of order have to be string. ";
     }
     return "Type of order is ok. ";
 }
-function validateMin($item, $min_value, $max_value = null, $available_orders = null)
+function validateMin($item, $min_value, $max_value, $available_orders)
 {
     if (strlen($item) <= $min_value) {
         return "Very few characters in the order. ";
     }
     return "Min number of characters are ok. ";
 }
-function validateMax($item, $min_value = null, $max_value, $available_orders = null)
+function validateMax($item, $min_value, $max_value, $available_orders)
 {
     if (strlen($item) >= $max_value) {
         return "A lot of characters in the order. ";
@@ -22,14 +22,14 @@ function validateMax($item, $min_value = null, $max_value, $available_orders = n
 
     return "Max number of characters are ok. ";
 }
-function validateInArray($order, $min_value = null, $max_value = null, $available_orders)
+function validateInArray($order, $min_value, $max_value, $available_orders)
 {
     if (!in_array($order, $available_orders)) {
         return "This order isn't listed. ";
     }
     return "This order is listed. ";
 }
-function validate($order, $rules, $available_orders)
+function validateOrder($order, $rules, $available_orders)
 {
     $messages = [];
     $rules_in_array = explode('|', $rules);
@@ -43,7 +43,7 @@ function validate($order, $rules, $available_orders)
     }
     return $messages;
 }
-function index($order)
+function indexOrder($order)
 {
     $available_orders =
         [
@@ -52,11 +52,9 @@ function index($order)
             "Тонем"
         ];
     $rules = 'string|min:2|max:25|inArray:$available_orders';
-    $messages = validate($order, $rules, $available_orders);
+    $messages = validateOrder($order, $rules, $available_orders);
 
     return count($messages)
-        ? implode(',\n', $messages)
+        ? implode('</br>', $messages)
         : 'No validation messages';
 }
-$order = readline("Input order: ");
-echo index($order);
